@@ -3,12 +3,12 @@ package com.example.kmvvm.data
 import com.example.kmvvm.data.model.QuoteModel
 import com.example.kmvvm.data.model.QuoteProvider
 import com.example.kmvvm.data.network.QuoteService
+import javax.inject.Inject
 
-class QuoteRepository {
-    private val api = QuoteService()
-    suspend fun getAllQuotes(): List<QuoteModel>{
+class QuoteRepository @Inject constructor(private val api: QuoteService, private val quoteProvider: QuoteProvider) {
+    suspend fun getAllQuotes(): List<QuoteModel> {
         val response = api.getQuotes()
-        QuoteProvider.quotes = response
+        quoteProvider.quotes = response
         return response
     }
 }
